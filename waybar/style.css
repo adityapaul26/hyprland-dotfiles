@@ -1,0 +1,223 @@
+@import "colors.css"; 
+
+* {
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+window#waybar {
+  /* Solid background (slightly transparent) */
+  background-color: alpha(@background, 0.1);
+  color: @on_surface;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  /* Rounded corners for the bar itself since you have margins */
+  border-radius: 14px;
+}
+
+window#waybar.hidden {
+  opacity: 0.2;
+}
+
+/* --- WORKSPACES --- */
+#workspaces {
+  background-color: transparent;
+  margin: 4px 4px; 
+}
+
+#workspaces button {
+  padding: 0px 12px;
+  margin: 4px 3px;
+  /* Solid background */
+  background-color: @surface_container;
+  color: @on_surface_variant;
+  /* Fully rounded (Pill shape) */
+  
+  border-radius: 99px; 
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#workspaces button.active {
+  /* No Gradient: Solid Primary Color */
+  background-color: @primary;
+  color: @on_primary;
+  min-width: 45px;
+  font-weight: 900;
+}
+
+#workspaces button:hover {
+  background-color: @surface_container_high;
+  color: @on_surface;
+  box-shadow: 0 4px 12px alpha(@primary, 0.3);
+}
+
+#workspaces button.urgent {
+  background-color: @error;
+  color: @on_error;
+}
+
+/* --- MODULES (General) --- */
+/* Grouping all "Card" style modules */
+#memory,
+#cpu,
+#custom-power,
+#battery,
+#backlight,
+#pulseaudio,
+#wireplumber,
+#network,
+#clock,
+#tray,
+#custom-updates,
+#custom-weather {
+  /* Solid Background */
+  background-color: @surface_container_high; 
+  color: @on_surface;
+  
+  margin: 6px 4px;
+  padding: 4px 14px;
+  
+  /* Unified rounded corners */
+  border-radius: 24px;
+  
+  /* Border for definition */
+  border: 1px solid @outline_variant;
+  
+  transition: all 0.3s ease;
+}
+
+/* --- HOVER EFFECTS --- */
+#memory:hover,
+#cpu:hover,
+#battery:hover,
+#backlight:hover,
+#pulseaudio:hover,
+#wireplumber:hover,
+#network:hover,
+#custom-power:hover {
+  /* Light up on hover */
+  background-color: @surface_container;
+  border-color: @primary;
+}
+
+/* --- CUSTOM LOGO --- */
+#custom-logo {
+  color: @primary;
+  background-color: transparent;
+  font-size: 24px;
+  padding-left: 12px;
+  padding-right: 18px;
+  margin-top: 2px;
+}
+
+/* --- CLOCK --- */
+#clock {
+  /* Solid Secondary Color */
+  background-color: @secondary;
+  color: @on_secondary_container; 
+  /* Fallback if container color missing */
+  color: #000000; 
+  font-weight: 800;
+  padding: 4px 18px;
+}
+
+/* --- CPU & MEMORY --- */
+#cpu {
+  color: @tertiary;
+}
+
+#memory {
+  color: @primary;
+}
+
+/* --- NETWORK --- */
+#network {
+  color: @primary;
+}
+
+#network.disconnected {
+  color: @on_error;
+  background-color: @error;
+  border-color: @error;
+}
+
+/* --- AUDIO --- */
+#pulseaudio,
+#wireplumber {
+  color: @secondary;
+}
+
+#wireplumber.muted {
+  color: @on_surface_variant;
+  background-color: @surface_container;
+  text-decoration: line-through;
+}
+
+/* --- BATTERY --- */
+#battery {
+  color: @primary;
+}
+
+#battery.charging {
+  color: @on_primary;
+  background-color: @primary;
+}
+
+#battery.warning:not(.charging) {
+  color: @on_tertiary;
+  background-color: @tertiary;
+}
+
+#battery.critical:not(.charging) {
+  color: @on_error;
+  background-color: @error;
+  animation: critical-blink 0.8s ease-in-out infinite;
+}
+
+/* --- POWER BUTTON --- */
+#custom-power {
+  background-color: @error;
+  color: @on_error;
+  border: 1px solid @error;
+  padding: 4px 16px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+#custom-power:hover {
+  background-color: @on_error;
+  color: @error;
+}
+
+/* --- SYSTEM TRAY --- */
+#tray {
+  background-color: @surface_container;
+  padding: 0px 12px;
+}
+
+#tray > .needs-attention {
+  background-color: @error;
+  color: @on_error;
+}
+
+/* --- TOOLTIPS --- */
+tooltip {
+  background-color: @surface_container;
+  border-radius: 16px;
+  border: 1px solid @primary;
+}
+
+tooltip label {
+  color: @on_surface;
+  font-size: 14px;
+}
+
+@keyframes critical-blink {
+    0% { background-color: @error; color: @on_error; }
+    50% { background-color: @on_error; color: @error; }
+    100% { background-color: @error; color: @on_error; }
+}
