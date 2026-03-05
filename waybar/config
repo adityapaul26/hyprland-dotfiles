@@ -8,7 +8,9 @@
     "margin-right": 10,
     "modules-left": [
         "custom/logo",
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "custom/cava",
+        "custom/playerinfo"
     ],
     "modules-center": [
         "clock"
@@ -39,6 +41,22 @@
             "5": []
         }
     },
+     "custom/cava": {
+        "exec": "/home/aditya/.config/waybar/cava.sh",
+        "format": "{}",
+        "tooltip": false
+    },
+    "custom/playerinfo": {
+            "format": "&lt; {} &gt;",
+            "exec": "~/.config/waybar/playerinfo.sh",
+            "escape": true,
+            "return-type": "json",
+            "interval": 1,
+            "tooltip": true,
+            "on-click-middle": "playerctl play-pause",
+            "on-click-right": "playerctl next",
+            "on-click-left": "playerctl previous"
+        },
     "memory": {
         "interval": 5,
         "format": " {percentage}%",

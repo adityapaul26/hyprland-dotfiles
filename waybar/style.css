@@ -20,7 +20,7 @@ window#waybar {
 }
 
 window#waybar.hidden {
-  opacity: 0.2;
+  opacity: 0.1;
 }
 
 /* --- WORKSPACES --- */
@@ -73,7 +73,9 @@ window#waybar.hidden {
 #clock,
 #tray,
 #custom-updates,
-#custom-weather {
+#custom-weather,
+#custom-cava,
+#custom-playerinfo {
   /* Solid Background */
   background-color: @surface_container_high; 
   color: @on_surface;
@@ -98,7 +100,9 @@ window#waybar.hidden {
 #pulseaudio:hover,
 #wireplumber:hover,
 #network:hover,
-#custom-power:hover {
+#custom-power:hover,
+#custom-cava:hover,
+#custom-playerinfo:hover {
   /* Light up on hover */
   background-color: @surface_container;
   border-color: @primary;
@@ -132,6 +136,22 @@ window#waybar.hidden {
 
 #memory {
   color: @primary;
+}
+
+/* --- CAVA --- */
+#custom-cava {
+  color: @primary;
+  font-family: "JetBrainsMono Nerd Font", monospace;
+  font-size: 14px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* --- PLAYER INFO --- */
+#custom-playerinfo {
+  color: @tertiary;
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /* --- NETWORK --- */
