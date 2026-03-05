@@ -1,67 +1,26 @@
-@import "colors.css"; 
+@import "colors.css";
 
 * {
   border: none;
   border-radius: 0;
   min-height: 0;
   font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 window#waybar {
-  /* Solid background (slightly transparent) */
-  background-color: alpha(@background, 0.5);
-  color: @on_surface;
+  background-color: transparent; /* Entire bar is transparent */
   transition-property: background-color;
   transition-duration: 0.5s;
-  /* Rounded corners for the bar itself since you have margins */
-  border-radius: 14px;
 }
 
 window#waybar.hidden {
   opacity: 0.1;
 }
 
-/* --- WORKSPACES --- */
-#workspaces {
-  background-color: transparent;
-  margin: 4px 4px; 
-}
-
-#workspaces button {
-  padding: 0px 12px;
-  margin: 4px 3px;
-  /* Solid background */
-  background-color: @surface_container;
-  color: @on_surface_variant;
-  /* Fully rounded (Pill shape) */
-  
-  border-radius: 99px; 
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-#workspaces button.active {
-  /* No Gradient: Solid Primary Color */
-  background-color: @primary;
-  color: @on_primary;
-  min-width: 45px;
-  font-weight: 900;
-}
-
-#workspaces button:hover {
-  background-color: @surface_container_high;
-  color: @on_surface;
-  box-shadow: 0 4px 12px alpha(@primary, 0.3);
-}
-
-#workspaces button.urgent {
-  background-color: @error;
-  color: @on_error;
-}
-
-/* --- MODULES (General) --- */
-/* Grouping all "Card" style modules */
+/* Base style for all modules to make them look like floating pills */
+#workspaces,
 #memory,
 #cpu,
 #custom-power,
@@ -75,24 +34,21 @@ window#waybar.hidden {
 #custom-updates,
 #custom-weather,
 #custom-cava,
-#custom-playerinfo {
-  /* Solid Background */
-  background-color: @surface_container_high; 
+#custom-playerinfo,
+#bluetooth,
+#custom-logo {
+  background-color: alpha(@surface_container_high, 0.85);
   color: @on_surface;
-  
-  margin: 6px 4px;
-  padding: 4px 14px;
-  
-  /* Unified rounded corners */
-  border-radius: 24px;
-  
-  /* Border for definition */
-  border: 1px solid @outline_variant;
-  
-  transition: all 0.3s ease;
+  margin: 5px 4px 0px 4px; /* Top margin to float */
+  padding: 4px 16px;
+  border-radius: 20px; /* Pill shape */
+  border: 1px solid alpha(@outline_variant, 0.5);
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-/* --- HOVER EFFECTS --- */
+/* Hover effect for all interactive modules */
+#workspaces:hover,
 #memory:hover,
 #cpu:hover,
 #battery:hover,
@@ -102,31 +58,59 @@ window#waybar.hidden {
 #network:hover,
 #custom-power:hover,
 #custom-cava:hover,
-#custom-playerinfo:hover {
-  /* Light up on hover */
-  background-color: @surface_container;
+#custom-playerinfo:hover,
+#bluetooth:hover,
+#clock:hover {
+  background-color: alpha(@surface_container, 0.95);
+  box-shadow: 0px 0px 12px alpha(@primary, 0.6);
   border-color: @primary;
+}
+
+/* --- WORKSPACES --- */
+#workspaces {
+  padding: 2px 6px; /* tighter padding for workspace container */
+}
+
+#workspaces button {
+  padding: 0px 8px;
+  margin: 2px;
+  background-color: transparent;
+  color: @on_surface_variant;
+  border-radius: 15px;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); /* Bouncy transition */
+}
+
+#workspaces button.active {
+  background: linear-gradient(45deg, @primary, @tertiary);
+  color: @on_primary;
+  min-width: 50px; /* Expands when active */
+  box-shadow: 0px 0px 10px alpha(@primary, 0.5);
+}
+
+#workspaces button:hover {
+  background-color: alpha(@on_surface, 0.1);
+  color: @on_surface;
+}
+
+#workspaces button.urgent {
+  background-color: @error;
+  color: @on_error;
+  animation: pulse 1s infinite alternate;
 }
 
 /* --- CUSTOM LOGO --- */
 #custom-logo {
   color: @primary;
-  background-color: transparent;
-  font-size: 24px;
-  padding-left: 12px;
-  padding-right: 18px;
-  margin-top: 2px;
+  font-size: 18px;
+  padding: 4px 18px;
+  background: linear-gradient(120deg, alpha(@surface_container_high, 0.85), alpha(@surface_container, 0.85));
 }
 
 /* --- CLOCK --- */
 #clock {
-  /* Solid Secondary Color */
-  background-color: @secondary;
-  color: @on_secondary_container; 
-  /* Fallback if container color missing */
-  color: #000000; 
-  font-weight: 800;
-  padding: 4px 18px;
+  color: @primary;
+  font-weight: 900;
+  background: linear-gradient(90deg, alpha(@surface_container_high, 0.85), alpha(@surface_container, 0.85));
 }
 
 /* --- CPU & MEMORY --- */
@@ -135,23 +119,18 @@ window#waybar.hidden {
 }
 
 #memory {
-  color: @primary;
+  color: @secondary;
 }
 
 /* --- CAVA --- */
 #custom-cava {
   color: @primary;
   font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 14px;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 /* --- PLAYER INFO --- */
 #custom-playerinfo {
   color: @tertiary;
-  padding-left: 15px;
-  padding-right: 15px;
 }
 
 /* --- NETWORK --- */
@@ -160,9 +139,7 @@ window#waybar.hidden {
 }
 
 #network.disconnected {
-  color: @on_error;
-  background-color: @error;
-  border-color: @error;
+  color: @error;
 }
 
 /* --- AUDIO --- */
@@ -172,9 +149,17 @@ window#waybar.hidden {
 }
 
 #wireplumber.muted {
-  color: @on_surface_variant;
-  background-color: @surface_container;
+  color: @outline;
   text-decoration: line-through;
+}
+
+/* --- BLUETOOTH --- */
+#bluetooth {
+  color: @primary;
+}
+
+#bluetooth.off, #bluetooth.disabled {
+  color: @outline;
 }
 
 /* --- BATTERY --- */
@@ -183,39 +168,36 @@ window#waybar.hidden {
 }
 
 #battery.charging {
-  color: @on_primary;
-  background-color: @primary;
+  color: @secondary;
+  animation: charge-pulse 2s infinite alternate;
 }
 
 #battery.warning:not(.charging) {
-  color: @on_tertiary;
-  background-color: @tertiary;
+  color: #ff9800;
 }
 
 #battery.critical:not(.charging) {
-  color: @on_error;
-  background-color: @error;
-  animation: critical-blink 0.8s ease-in-out infinite;
+  color: @error;
+  box-shadow: 0px 0px 10px alpha(@error, 0.6);
+  animation: pulse 1s infinite alternate;
 }
 
 /* --- POWER BUTTON --- */
 #custom-power {
-  background-color: @error;
+  background-color: alpha(@error, 0.8);
   color: @on_error;
-  border: 1px solid @error;
-  padding: 4px 16px;
-  margin-right: 10px;
-  font-size: 16px;
+  border-color: @error;
+  padding: 4px 18px;
+  margin-right: 8px;
 }
 
 #custom-power:hover {
-  background-color: @on_error;
-  color: @error;
+  background-color: @error;
+  box-shadow: 0px 0px 15px @error;
 }
 
 /* --- SYSTEM TRAY --- */
 #tray {
-  background-color: @surface_container;
   padding: 0px 12px;
 }
 
@@ -226,18 +208,24 @@ window#waybar.hidden {
 
 /* --- TOOLTIPS --- */
 tooltip {
-  background-color: @surface_container;
-  border-radius: 16px;
+  background: alpha(@surface_container_high, 0.95);
+  border-radius: 12px;
   border: 1px solid @primary;
+  box-shadow: 0px 10px 20px rgba(0,0,0,0.5);
 }
 
 tooltip label {
   color: @on_surface;
-  font-size: 14px;
+  padding: 4px;
 }
 
-@keyframes critical-blink {
-    0% { background-color: @error; color: @on_error; }
-    50% { background-color: @on_error; color: @error; }
-    100% { background-color: @error; color: @on_error; }
+/* --- ANIMATIONS --- */
+@keyframes pulse {
+    0% { box-shadow: 0px 0px 0px 0px alpha(@error, 0.7); }
+    100% { box-shadow: 0px 0px 15px 5px alpha(@error, 0); }
+}
+
+@keyframes charge-pulse {
+    0% { text-shadow: 0px 0px 2px @secondary; }
+    100% { text-shadow: 0px 0px 10px @secondary; }
 }
