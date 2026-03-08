@@ -41,10 +41,11 @@
             "5": []
         }
     },
-     "custom/cava": {
+        "custom/cava": {
         "exec": "/home/aditya/.config/waybar/cava.sh",
         "format": "{}",
-        "tooltip": false
+        "tooltip": false,
+        "restart-interval": 2
     },
     "custom/playerinfo": {
             "format": "&lt; {} &gt;",
@@ -56,7 +57,7 @@
             "on-click-middle": "playerctl play-pause",
             "on-click-right": "playerctl next",
             "on-click-left": "playerctl previous"
-        },
+    },
     "memory": {
         "interval": 5,
         "format": " {percentage}%",
