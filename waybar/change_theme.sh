@@ -19,8 +19,8 @@ swww img "$RANDOM_WALL" --transition-type grow --transition-fps 60
 
 # 4. Generate Colors (One line is safer)
 # I removed the backslashes to prevent errors.
-matugen image "$RANDOM_WALL"
-
+# matugen image "$RANDOM_WALL" --old-json-output
+matugen --old-json-output --source-color-index 0 image "$RANDOM_WALL"
 # 5. Reload Waybar
 killall -SIGUSR2 waybar
 
